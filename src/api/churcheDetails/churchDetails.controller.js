@@ -1,5 +1,13 @@
 let ChurchDetail = require("./churchDetails.model");
 
+indexGet = async(req, res, next) => {
+    try {
+        let details = await ChurchDetail.find()
+        return res.status(200).json(details);
+    } catch(error) {
+        return next(error);
+    }
+}
 let getByChurch = async ( req, res, next) => {
     try {
         let { church } = req.params
@@ -15,7 +23,7 @@ let getByType = async ( req, res, next ) => {
         let { type } = req.params
         let found = await ChurchDetail.find({detailType:type})
         return res.status(200).json(found)
-    }catch {
+    }catch (error){
         return next(error)
     }
 };
@@ -25,7 +33,7 @@ let createDetail = async (req, res, next) => {
         let detailToCreate = new ChurchDetail(req.body)
     let created = await detailToCreate.save()
     return res.status(201).json(created)
-    }catch {
+    }catch (error){
         return next(error)
     }
     
@@ -58,6 +66,7 @@ let deleteDetail = async (req, res, next) => {
 }
 
 module.exports = {
+    indexGet,
     getByChurch,
     getByType,
     createDetail,

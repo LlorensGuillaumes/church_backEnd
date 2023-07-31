@@ -2,19 +2,20 @@ let Church = require("./churches.model");
 
 let indexGet = async (req, res, next) => {
   try {
-    let churches = await Church.find().select("_id name locationGPS townLocation province architectonicStyle century");
-    return res.status(200).json(churches);
+    let churches = await Church.find().populate("churchDetail");
+    return res.status(200).json(churches)
   } catch (error) {
     return next(error);
   }
 };
 
-let getById = async (req, res, netx) => {
+let getById = async (req, res, next) => {
   try {
+    console.log(req.params)
     let { id } = req.params;
     let churchFound = await Church.find({ _id: id });
     return res.status(200).json(churchFound);
-  } catch {
+  } catch (error){
     return next(error);
   }
 };
@@ -25,7 +26,7 @@ let createChurch = async (req, res, next) => {
     let churchToCreate = new Church(req.body)
     let created = await churchToCreate.save()
     return res.status(201).json(created)
-  } catch {
+  } catch (error){
     return next(error);
     //return ("hola")
   }

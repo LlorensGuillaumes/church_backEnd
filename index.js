@@ -9,11 +9,12 @@ db.connectDB(); /* -> utilizamos la función que me conecta con la base de datos
 // All Routes imports -> para luego poder utilizarlas en nuestro servidor
 const indexRoutes = require("./src/api/index/index.routes");
 const churchesRoutes = require("./src/api/churches/churches.routes");
-let churchDetailsRoutes = require("./src/api/churcheDetails/churchDetails.routes")
-// let coursesRoutes = require("./src/api/courses/courses.routes")
+const churchDetailsRoutes = require("./src/api/churcheDetails/churchDetails.routes")
+const appListRoutes = require('./src/api/appList/appList.routes');
+
 
 // declaramos el puerto en el que se levantará nuestro servidor
-const PORT = 3000;
+const PORT = 5000;
 //const PORT = process.env.PORT
 
 // ejecutamos nuestro express() para tener acceso al server y poder hacer ciertas cosas sobre el
@@ -31,6 +32,7 @@ server.use(express.urlencoded({ extended: true }));
 // Configuración de todas las rutas de nuestro servidor
 server.use("/churches", churchesRoutes);
 server.use("/churchDetails", churchDetailsRoutes);
+server.use('/appList', appListRoutes);
 // server.use("/courses", coursesRoutes)
 server.use("/", indexRoutes);
 
