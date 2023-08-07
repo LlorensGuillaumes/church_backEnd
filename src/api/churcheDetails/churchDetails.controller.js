@@ -18,6 +18,7 @@ let getByChurch = async ( req, res, next) => {
     }
 };
 
+
 let getByType = async ( req, res, next ) => {
     try {
         let { type } = req.params

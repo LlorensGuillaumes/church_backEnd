@@ -1,35 +1,35 @@
 let Church = require("./churches.model");
-const multer = require('multer');
-const path = require('path');
-// const express = require('express');
+const multer = require("multer");
+const path = require("path");
+const express = require('express');
 // const fileUpload = require('express-fileupload')
 
-let saveNames = [];
+let saveNames;
 
 const storage = multer.diskStorage({
-  
   destination: (req, file, cb) => {
-    cb(null, './src/api/churches/images');
+    cb(null, "./src/api/churches/images");
   },
   filename: (req, file, cb) => {
     const filename = `${Date.now()}-${file.originalname}`;
-    cb(null, filename );
-    saveNames.push(filename)
+    cb(null, filename);
+    saveNames.push(filename);
     // cb(null, `hola-${file.originalname}`);
-  }
-})
+  },
+});
 
-const upload = multer({storage: storage});
+const upload = multer({ storage: storage });
 
 // const app = express();
 
 const postImage = async (req, res, next) => {
-
+  saveNames = [];
   try {
-    upload.any('file')(req, res, (err) => {
-  
+    upload.any("file")(req, res, (err) => {
       if (err) {
-        return res.status(500).json({ message: 'Error al subir la imagen', error: err });
+        return res
+          .status(500)
+          .json({ message: "Error al subir la imagen", error: err });
       }
       return res.status(200).json({ saveNames });
     });
@@ -38,12 +38,23 @@ const postImage = async (req, res, next) => {
   }
 };
 
+const getImages = async (req, res, next) =>{
 
+  try{
+    const imageName = req.params.imageName;
+    const imagePath = path.join(__dirname, `../churches/images/${imageName}`);
+
+    res.sendFile(imagePath)
+
+  }catch(error){
+    return next(error)
+  }
+}
 
 let indexGet = async (req, res, next) => {
   try {
     let churches = await Church.find().populate("churchDetail");
-    return res.status(200).json(churches)
+    return res.status(200).json(churches);
   } catch (error) {
     return next(error);
   }
@@ -54,7 +65,7 @@ let getById = async (req, res, next) => {
     let { id } = req.params;
     let churchFound = await Church.find({ _id: id });
     return res.status(200).json(churchFound);
-  } catch (error){
+  } catch (error) {
     return next(error);
   }
 };
@@ -62,24 +73,20 @@ let getById = async (req, res, next) => {
 
 let createChurch = async (req, res, next) => {
   try {
-    let churchToCreate = new Church(req.body)
-    let created = await churchToCreate.save()
-    return res.status(201).json(created)
-  } catch (error){
+    let churchToCreate = new Church(req.body);
+    let created = await churchToCreate.save();
+    return res.status(201).json(created);
+  } catch (error) {
     return next(error);
-    //return ("hola")
   }
 };
 
 let editChurch = async (req, res, next) => {
-  console.log(req.params)
-  console.log(req.body)
-  console.log('entra per aqui')
+
   try {
     let { id } = req.params;
     let fields = { ...req.body };
     let options = { new: true };
-    console.log (id)
 
     let edited = await Church.findByIdAndUpdate(id, fields, options);
     return res.status(200).json(edited);
@@ -104,6 +111,7 @@ let deleteChurch = async (req, res, next) => {
 
 module.exports = {
   postImage,
+  getImages,
   indexGet,
   getById,
   createChurch,

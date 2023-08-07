@@ -9,6 +9,7 @@ router.post('/newChurch', controller.createChurch); //nova
 router.put('/modifyChurch/:id', controller.editChurch); // modificar
 router.delete('/deleteChuch/:id', controller.deleteChurch); //eliminar
 router.post('/images', controller.postImage);   //per pujar imatges
+router.get('/getImages/:imageName', controller.getImages);
 
 
 module.exports = router;
