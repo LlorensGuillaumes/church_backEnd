@@ -1,4 +1,4 @@
-let ChurchDetail = require("./churchDetails.model");
+let ChurchDetail = require("./standOutDetails.model");
 
 indexGet = async(req, res, next) => {
     try {

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const ChurchDetail = require("../churcheDetails/churchDetails.model")
+const ChurchDetail = require("../standOutDetails/standOutDetails.model")
 
 const churchSchema = mongoose.Schema({
     name: {
@@ -41,6 +41,10 @@ const churchSchema = mongoose.Schema({
         type: [mongoose.Schema.Types.ObjectId],
         ref: 'churchDetails'
         
+    },
+    buildType:{
+        type: String,
+        required: true,
     }
 });
 

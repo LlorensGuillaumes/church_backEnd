@@ -7,7 +7,7 @@ db.connectDB();
 
 const indexRoutes = require("./src/api/index/index.routes");
 const churchesRoutes = require("./src/api/churches/churches.routes");
-const churchDetailsRoutes = require("./src/api/churcheDetails/churchDetails.routes");
+const standOutDetailsRoutes = require("./src/api/standOutDetails/standOutDetails.routes");
 const appListRoutes = require("./src/api/appList/appList.routes");
 const userRoutes = require("./src/api/users/users.routes");
 
@@ -21,9 +21,9 @@ server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 
 server.use("/churches", churchesRoutes);
-server.use("/churchDetails", churchDetailsRoutes);
+server.use("/standOutDetails", standOutDetailsRoutes);
 server.use("/appList", appListRoutes);
-server.use("/user", userRoutes);
+server.use("/users", userRoutes);
 server.use("/", indexRoutes);
 server.use("*", (req, res, next) => {
   return res.status(404).json("No se encuentra la URL. Prueba con otra URL");

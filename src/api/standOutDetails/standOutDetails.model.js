@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const churchDetailsSchema = mongoose.Schema({
+const standOutDetailsSchema = mongoose.Schema({
   detailType: {
     type: String,
     required: true,
@@ -16,5 +16,5 @@ const churchDetailsSchema = mongoose.Schema({
   },
 });
 
-const ChurchDetail = mongoose.model("churchDetails", churchDetailsSchema);
-module.exports = ChurchDetail;
+const StandOutDetails = mongoose.model("churchDetails", standOutDetailsSchema);
+module.exports = StandOutDetails;

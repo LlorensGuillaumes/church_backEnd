@@ -1,5 +1,5 @@
 let express = require("express");
-let controller = require('./churchDetails.controller');
+let controller = require('./standOutDetails.controller');
 
 let router = express.Router();
 
