@@ -1,7 +1,9 @@
 const { verifyJwt } = require("../jwt/jwt");
 
 const authenticateToken = (req, res, next) => {
+
   const token = req.header("Authorization");
+
 
   if (!token) {
     return res.status(401).json({ message: "Token requerido" });

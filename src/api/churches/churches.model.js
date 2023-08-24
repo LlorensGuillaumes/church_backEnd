@@ -37,11 +37,18 @@ const churchSchema = mongoose.Schema({
     property: {
         type: String,
     },
-    churchDetail:{
-        type: [mongoose.Schema.Types.ObjectId],
-        ref: 'churchDetails'
-        
-    },
+    churchDetail: [{
+        detailType: {
+            type: String,
+            required: true,
+        },
+        description: {
+            type: String,
+        },
+        year: {
+            type: String,
+        },
+    }],
     buildType:{
         type: String,
         required: true,

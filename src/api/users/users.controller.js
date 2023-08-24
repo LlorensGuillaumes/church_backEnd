@@ -65,15 +65,14 @@ const deleteUser = async (req, res, next) => {
 
 const login = async (req, res, next) => {
 
-    console.log(req.body.mail)
-    console.log(req.body.password)
+
     try {
       const userDB = await User.findOne({ mail: req.body.mail });
       
       if (!userDB) {
         return res.status(400).json("usuari no trobat");
       }
-    console.log(userDB.password)
+   
       if (bcrypt.compareSync(req.body.password, userDB.password)) {
         const token = generateToken(userDB._id, userDB.mail);  
         return res.status(200).json({ token, userDB });

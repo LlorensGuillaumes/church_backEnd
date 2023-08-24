@@ -88,6 +88,7 @@ let editChurch = async (req, res, next) => {
     let fields = { ...req.body };
     let options = { new: true };
 
+
     let edited = await Church.findByIdAndUpdate(id, fields, options);
     return res.status(200).json(edited);
   } catch (error) {

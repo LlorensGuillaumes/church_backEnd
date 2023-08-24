@@ -1,11 +1,17 @@
 const jwt = require('jsonwebtoken');
 
+
 const generateToken = (id, mail) => {
-    return jwt.sign({ id, mail }, process.env.JWT_SECRET, { expiresIn: "30s" });
+    const token = jwt.sign({ id, mail }, process.env.JWT_SECRET, { expiresIn: "30d" });
+  
+    
+    return token
 };
 
 const verifyJwt = (token) => {
     try {
+     
+        
         // Intenta verificar el token
         const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
         return decodedToken;

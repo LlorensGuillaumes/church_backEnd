@@ -7,6 +7,12 @@ const appListSchema = mongoose.Schema({
   architectonicStyles: {
     type: [String],
   },
+  buildingTypes: {
+    type:[String],
+  },
+  detailType:{
+    type:[String],
+  }
 
 });
 

@@ -11,9 +11,6 @@ const standOutDetailsSchema = mongoose.Schema({
   year: {
     type: String,
   },
-  detailImages: {
-    type: [String],
-  },
 });
 
 const StandOutDetails = mongoose.model("churchDetails", standOutDetailsSchema);
