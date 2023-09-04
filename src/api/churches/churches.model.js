@@ -52,7 +52,11 @@ const churchSchema = mongoose.Schema({
     buildType:{
         type: String,
         required: true,
-    }
+    },  
+    puntuation:[{
+        type: Number,
+        default: 1,
+    }],
 });
 
 const Church = mongoose.model("churches", churchSchema);

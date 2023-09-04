@@ -13,6 +13,7 @@ router.put('/modifyChurch/:id', controller.editChurch); // modificar
 router.delete('/deleteChurch/:id', controller.deleteChurch);
 router.post('/images', controller.postImage);   //per pujar imatges
 router.get('/getImages/:imageName', controller.getImages);
+router.put('/addPuntuation/:puntuation/:id', controller.addPuntuation);
 
 
 module.exports = router;

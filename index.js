@@ -10,7 +10,8 @@ const churchesRoutes = require("./src/api/churches/churches.routes");
 const standOutDetailsRoutes = require("./src/api/standOutDetails/standOutDetails.routes");
 const appListRoutes = require("./src/api/appList/appList.routes");
 const userRoutes = require("./src/api/users/users.routes");
-const townsRoutes = require("./src/api/towns/towns.routes")
+const userDataRoutes = require('./src/api/usersData/usersData.routes');
+
 
 const PORT = 5000;
 //const PORT = process.env.PORT
@@ -25,7 +26,7 @@ server.use("/churches", churchesRoutes);
 server.use("/standOutDetails", standOutDetailsRoutes);
 server.use("/appList", appListRoutes);
 server.use("/users", userRoutes);
-server.use("/towns", townsRoutes)
+server.use("/userData", userDataRoutes);
 server.use("/", indexRoutes);
 server.use("*", (req, res, next) => { 
   return res.status(404).json("No se encuentra la URL. Prueba con otra URL");

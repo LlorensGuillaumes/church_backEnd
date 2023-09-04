@@ -2,7 +2,6 @@ let Church = require("./churches.model");
 const multer = require("multer");
 const path = require("path");
 const express = require('express');
-// const fileUpload = require('express-fileupload')
 
 let saveNames;
 
@@ -51,19 +50,19 @@ const getImages = async (req, res, next) =>{
   }
 }
 
-let indexGet = async (req, res, next) => {
+const indexGet = async (req, res, next) => {
   try {
-    let churches = await Church.find().populate("churchDetail");
+    const churches = await Church.find().populate("churchDetail");
     return res.status(200).json(churches);
   } catch (error) {
     return next(error);
   }
 };
 
-let getById = async (req, res, next) => {
+const getById = async (req, res, next) => {
   try {
-    let { id } = req.params;
-    let churchFound = await Church.find({ _id: id });
+    const { id } = req.params;
+    const churchFound = await Church.find({ _id: id });
     return res.status(200).json(churchFound);
   } catch (error) {
     return next(error);
@@ -71,35 +70,35 @@ let getById = async (req, res, next) => {
 };
 // falta afegir més ítems de búsqueda
 
-let createChurch = async (req, res, next) => {
+const createChurch = async (req, res, next) => {
   try {
-    let churchToCreate = new Church(req.body);
-    let created = await churchToCreate.save();
+    const churchToCreate = new Church(req.body);
+    const created = await churchToCreate.save();
     return res.status(201).json(created);
   } catch (error) {
     return next(error);
   }
 };
 
-let editChurch = async (req, res, next) => {
+const editChurch = async (req, res, next) => {
 
   try {
-    let { id } = req.params;
-    let fields = { ...req.body };
-    let options = { new: true };
+    const { id } = req.params;
+    const fields = { ...req.body };
+    const options = { new: true };
 
 
-    let edited = await Church.findByIdAndUpdate(id, fields, options);
+    const edited = await Church.findByIdAndUpdate(id, fields, options);
     return res.status(200).json(edited);
   } catch (error) {
     return next(error);
   }
 };
 
-let deleteChurch = async (req, res, next) => {
+const deleteChurch = async (req, res, next) => {
   try {
-    let { id } = req.params;
-    let deleted = await Church.delete({ _id: id });
+    const { id } = req.params;
+    const deleted = await Church.delete({ _id: id });
     if (deleted.deletedCount) {
       return res.status(200).json("Elemento eliminado");
     } else {
@@ -110,6 +109,37 @@ let deleteChurch = async (req, res, next) => {
   }
 };
 
+const addPuntuation = async (req, res, next) => {
+  try{
+    const { id } = req.params;
+    const { puntuation } = req.params;
+
+    const numericPuntuation = parseFloat(puntuation);
+    if(isNaN(numericPuntuation)){
+      return res.status(400).json({error: 'Puntuación no válida'});
+    }
+
+    const updateChurch = await Church.findByIdAndUpdate(
+      id,
+      { $push: { puntuation:numericPuntuation } },
+      { new: true }
+    );
+
+    if (!updateChurch){
+      return res.status(404).json({error: 'Edificio no encontrado'});
+
+    }
+
+    return res.status(200).json({message: 'Puntuación añadida'})
+
+
+  }catch(error){
+    return next(error)
+  }
+};
+
+
+
 module.exports = {
   postImage,
   getImages,
@@ -118,4 +148,5 @@ module.exports = {
   createChurch,
   editChurch,
   deleteChurch,
+  addPuntuation,
 };

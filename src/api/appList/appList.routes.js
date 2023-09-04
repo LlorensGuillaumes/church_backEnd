@@ -4,6 +4,6 @@ let router = express.Router();
 
 router.get('/', controller.indexGet);
 router.post('/new', controller.createList);
-router.put('/edit', controller.editList);
+router.put('/edit/:id', controller.editList);
 
 module.exports = router;

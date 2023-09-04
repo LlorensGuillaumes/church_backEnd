@@ -1,6 +1,6 @@
 let AppList = require('./appList.model');
 
-indexGet = async(req, res, next) => {
+let indexGet = async(req, res, next) => {
     try{
         let details = await AppList.find()
         return res.status(200).json(details)
